@@ -1,6 +1,7 @@
 package com.valdir.senaivacinas.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,54 +9,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Enderecos")
-public class Endereco implements Serializable {
+@Table(name = "Agendamentos")
+public class Agendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String Logradouro;
-	private String numero;
-	private String complemento;
-	private String bairro;
-	private String cep;
+	private Date data;
+	private Boolean finalizado;
+	private String observações;
 
 	@JsonIgnore
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
-	@ManyToOne
-	@JoinColumn(name = "cidade_id")
-	private Cidade cidade;
-
 	@JsonIgnore
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "unidade_de_atendimento_id")
 	private UnidadeAtendimento unidadeAtendimento;
 
-	public Endereco() {
+	public Agendamento() {
 		super();
 	}
 
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
-			Usuario usuario, Cidade cidade) {
+	public Agendamento(Integer id, Date data, Boolean finalizado, String observações, Usuario usuario,
+			UnidadeAtendimento unidadeAtendimento) {
 		super();
 		this.id = id;
-		Logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cep = cep;
+		this.data = data;
+		this.finalizado = finalizado;
+		this.observações = observações;
 		this.usuario = usuario;
-		this.cidade = cidade;
+		this.unidadeAtendimento = unidadeAtendimento;
 	}
 
 	public Integer getId() {
@@ -66,44 +58,28 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
-	public String getLogradouro() {
-		return Logradouro;
+	public Date getData() {
+		return data;
 	}
 
-	public void setLogradouro(String logradouro) {
-		Logradouro = logradouro;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
-	public String getNumero() {
-		return numero;
+	public Boolean getFinalizado() {
+		return finalizado;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setFinalizado(Boolean finalizado) {
+		this.finalizado = finalizado;
 	}
 
-	public String getComplemento() {
-		return complemento;
+	public String getObservações() {
+		return observações;
 	}
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setObservações(String observações) {
+		this.observações = observações;
 	}
 
 	public Usuario getUsuario() {
@@ -112,14 +88,6 @@ public class Endereco implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Cidade getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
 	}
 
 	public UnidadeAtendimento getUnidadeAtendimento() {
@@ -146,7 +114,7 @@ public class Endereco implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Endereco other = (Endereco) obj;
+		Agendamento other = (Agendamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

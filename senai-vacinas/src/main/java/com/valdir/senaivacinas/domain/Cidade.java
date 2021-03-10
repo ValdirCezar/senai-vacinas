@@ -31,10 +31,11 @@ public class Cidade implements Serializable {
 		super();
 	}
 
-	public Cidade(Integer id, String nome) {
+	public Cidade(Integer id, String nome, Estado estado) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.estado = estado;
 	}
 
 	public Integer getId() {
