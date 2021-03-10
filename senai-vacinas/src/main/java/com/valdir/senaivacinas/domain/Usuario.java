@@ -1,6 +1,7 @@
 package com.valdir.senaivacinas.domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "Usuarios")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,14 +28,15 @@ public class Usuario implements Serializable {
 
 	private String nome;
 	private String sobrenome;
-	private Float peso;
+	private Double altura;
+	private Double peso;
 	private Character sexo;
 
 	@Column(unique = true)
 	private String telefone;
 
 	private Date dataDeNascimento;
-	private Byte idade;
+	private Integer idade;
 	private Boolean obeso;
 	private Boolean deficiente;
 	private String tipoDeDeficiencia;
@@ -42,7 +46,7 @@ public class Usuario implements Serializable {
 
 	@JsonIgnore
 	private String senha;
-	
+
 	@OneToOne(mappedBy = "usuario")
 	private Endereco endereco;
 
@@ -50,24 +54,49 @@ public class Usuario implements Serializable {
 		super();
 	}
 
-	public Usuario(Integer id, String cpf, String nome, String sobrenome, Float peso, Character sexo, String telefone,
-			Date dataDeNascimento, Byte idade, Boolean obeso, Boolean deficiente, String tipoDeDeficiencia,
-			String email, String senha) {
+	public Usuario(Integer id, String cpf, String nome, String sobrenome, Double altura, Double peso, Character sexo,
+			String telefone, Date dataDeNascimento, Boolean deficiente, String tipoDeDeficiencia, String email,
+			String senha) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
+		this.altura = altura;
 		this.peso = peso;
 		this.sexo = sexo;
 		this.telefone = telefone;
 		this.dataDeNascimento = dataDeNascimento;
-		this.idade = idade;
-		this.obeso = obeso;
 		this.deficiente = deficiente;
 		this.tipoDeDeficiencia = tipoDeDeficiencia;
 		this.email = email;
 		this.senha = senha;
+
+		this.verificaObesidade();
+		this.calculaIdade();
+	}
+
+	// Verifica se o usuario é obeso
+	private void verificaObesidade() {
+		this.setObeso((this.getPeso() / Math.pow(this.getAltura(), 2)) >= 30 ? true : false);
+	}
+
+	// Metodo que irá calcular a idade do usuario
+	private void calculaIdade() {
+		Calendar dataNascimento = Calendar.getInstance();
+		dataNascimento.setTime(this.getDataDeNascimento());
+		Calendar hoje = Calendar.getInstance();
+
+		this.setIdade(hoje.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR));
+
+		if (hoje.get(Calendar.MONTH) < dataNascimento.get(Calendar.MONTH)) {
+			idade--;
+		} else {
+			if (hoje.get(Calendar.MONTH) == dataNascimento.get(Calendar.MONTH)
+					&& hoje.get(Calendar.DAY_OF_MONTH) < dataNascimento.get(Calendar.DAY_OF_MONTH)) {
+				idade--;
+			}
+		}
 	}
 
 	public Integer getId() {
@@ -102,11 +131,19 @@ public class Usuario implements Serializable {
 		this.sobrenome = sobrenome;
 	}
 
-	public Float getPeso() {
+	public Double getAltura() {
+		return altura;
+	}
+
+	public void setAltura(Double altura) {
+		this.altura = altura;
+	}
+
+	public Double getPeso() {
 		return peso;
 	}
 
-	public void setPeso(Float peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 
@@ -134,11 +171,11 @@ public class Usuario implements Serializable {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
-	public Byte getIdade() {
+	public Integer getIdade() {
 		return idade;
 	}
 
-	public void setIdade(Byte idade) {
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
 
@@ -180,6 +217,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override

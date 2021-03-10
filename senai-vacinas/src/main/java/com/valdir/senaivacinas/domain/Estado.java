@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "Estados")
 public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +24,7 @@ public class Estado implements Serializable {
 
 	@Column(unique = true)
 	private String nome;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "pais_id")
@@ -52,6 +54,14 @@ public class Estado implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	@Override
