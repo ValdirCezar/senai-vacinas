@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +42,9 @@ public class Usuario implements Serializable {
 
 	@JsonIgnore
 	private String senha;
+	
+	@OneToOne(mappedBy = "usuario")
+	private Endereco endereco;
 
 	public Usuario() {
 		super();
