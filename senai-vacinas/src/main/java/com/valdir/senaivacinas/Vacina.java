@@ -1,8 +1,7 @@
-package com.valdir.senaivacinas.domain;
+package com.valdir.senaivacinas;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,33 +11,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.valdir.senaivacinas.domain.UnidadeAtendimento;
 
 @Entity
-@Table(name = "Estados")
-public class Estado implements Serializable {
+@Table(name = "Vacinas")
+public class Vacina implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(unique = true)
-	private String nome;
-
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "pais_id")
-	private Pais pais;
+	@JoinColumn(name = "unidade_de_atendimento_id")
+	private UnidadeAtendimento unidadeAtendimento;
 
-	public Estado() {
+	public Vacina() {
 		super();
 	}
 
-	public Estado(Integer id, String nome, Pais pais) {
+	public Vacina(Integer id, UnidadeAtendimento unidadeAtendimento) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.pais = pais;
+		this.unidadeAtendimento = unidadeAtendimento;
 	}
 
 	public Integer getId() {
@@ -49,20 +45,12 @@ public class Estado implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public UnidadeAtendimento getUnidadeAtendimento() {
+		return unidadeAtendimento;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
+	public void setUnidadeAtendimento(UnidadeAtendimento unidadeAtendimento) {
+		this.unidadeAtendimento = unidadeAtendimento;
 	}
 
 	@Override
@@ -81,7 +69,7 @@ public class Estado implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		Vacina other = (Vacina) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

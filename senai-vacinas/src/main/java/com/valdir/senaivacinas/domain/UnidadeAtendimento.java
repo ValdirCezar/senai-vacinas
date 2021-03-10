@@ -1,44 +1,48 @@
 package com.valdir.senaivacinas.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.valdir.senaivacinas.Vacina;
 
 @Entity
-@Table(name = "Estados")
-public class Estado implements Serializable {
+@Table(name = "Unidade_de_atendimento")
+public class UnidadeAtendimento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(unique = true)
 	private String nome;
+	private Integer vacinados;
+	
+	@OneToMany(mappedBy = "unidadeAtendimento")
+	private List<Vacina> vacinas = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "unidadeAtendimento")
+	private List<Agendamento> agendamentos = new ArrayList<>();
+	
+	@OneToOne(mappedBy = "unidadeAtendimento")
+	private Endereco endereco;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "pais_id")
-	private Pais pais;
-
-	public Estado() {
+	public UnidadeAtendimento() {
 		super();
 	}
-
-	public Estado(Integer id, String nome, Pais pais) {
+ 
+	public UnidadeAtendimento(Integer id, String nome, Integer vacinados) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.pais = pais;
+		this.vacinados = vacinados;
 	}
 
 	public Integer getId() {
@@ -57,12 +61,20 @@ public class Estado implements Serializable {
 		this.nome = nome;
 	}
 
-	public Pais getPais() {
-		return pais;
+	public Integer getVacinados() {
+		return vacinados;
 	}
 
-	public void setPais(Pais pais) {
-		this.pais = pais;
+	public void setVacinados(Integer vacinados) {
+		this.vacinados = vacinados;
+	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 	@Override
@@ -81,7 +93,7 @@ public class Estado implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estado other = (Estado) obj;
+		UnidadeAtendimento other = (UnidadeAtendimento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

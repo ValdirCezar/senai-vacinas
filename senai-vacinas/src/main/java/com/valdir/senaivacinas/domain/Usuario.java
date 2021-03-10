@@ -1,14 +1,17 @@
 package com.valdir.senaivacinas.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -49,6 +52,9 @@ public class Usuario implements Serializable {
 
 	@OneToOne(mappedBy = "usuario")
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Agendamento> agendamentos = new ArrayList<>();
 
 	public Usuario() {
 		super();
@@ -225,6 +231,14 @@ public class Usuario implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 	@Override
