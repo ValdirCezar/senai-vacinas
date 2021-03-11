@@ -12,8 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.valdir.senaivacinas.Vacina;
-
 @Entity
 @Table(name = "Unidade_de_atendimento")
 public class UnidadeAtendimento implements Serializable {
@@ -24,20 +22,20 @@ public class UnidadeAtendimento implements Serializable {
 	private Integer id;
 	private String nome;
 	private Integer vacinados;
-	
+
 	@OneToMany(mappedBy = "unidadeAtendimento")
 	private List<Vacina> vacinas = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "unidadeAtendimento")
 	private List<Agendamento> agendamentos = new ArrayList<>();
-	
+
 	@OneToOne(mappedBy = "unidadeAtendimento")
 	private Endereco endereco;
 
 	public UnidadeAtendimento() {
 		super();
 	}
- 
+
 	public UnidadeAtendimento(Integer id, String nome, Integer vacinados) {
 		super();
 		this.id = id;
@@ -75,6 +73,22 @@ public class UnidadeAtendimento implements Serializable {
 
 	public void setAgendamentos(List<Agendamento> agendamentos) {
 		this.agendamentos = agendamentos;
+	}
+
+	public List<Vacina> getVacinas() {
+		return vacinas;
+	}
+
+	public void setVacinas(List<Vacina> vacinas) {
+		this.vacinas = vacinas;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override

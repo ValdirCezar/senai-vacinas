@@ -1,4 +1,4 @@
-package com.valdir.senaivacinas;
+package com.valdir.senaivacinas.domain;
 
 import java.io.Serializable;
 
@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.valdir.senaivacinas.domain.UnidadeAtendimento;
 
 @Entity
 @Table(name = "Vacinas")

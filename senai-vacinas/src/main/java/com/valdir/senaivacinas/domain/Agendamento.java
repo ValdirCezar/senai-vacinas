@@ -23,7 +23,7 @@ public class Agendamento implements Serializable {
 	private Integer id;
 	private Date data;
 	private Boolean finalizado;
-	private String observações;
+	private String observacoes;
 
 	@JsonIgnore
 	@ManyToOne
@@ -39,13 +39,13 @@ public class Agendamento implements Serializable {
 		super();
 	}
 
-	public Agendamento(Integer id, Date data, Boolean finalizado, String observações, Usuario usuario,
+	public Agendamento(Integer id, Date data, Boolean finalizado, String observacoes, Usuario usuario,
 			UnidadeAtendimento unidadeAtendimento) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.finalizado = finalizado;
-		this.observações = observações;
+		this.observacoes = observacoes;
 		this.usuario = usuario;
 		this.unidadeAtendimento = unidadeAtendimento;
 	}
@@ -75,11 +75,11 @@ public class Agendamento implements Serializable {
 	}
 
 	public String getObservações() {
-		return observações;
+		return observacoes;
 	}
 
-	public void setObservações(String observações) {
-		this.observações = observações;
+	public void setObservações(String observacoes) {
+		this.observacoes = observacoes;
 	}
 
 	public Usuario getUsuario() {
