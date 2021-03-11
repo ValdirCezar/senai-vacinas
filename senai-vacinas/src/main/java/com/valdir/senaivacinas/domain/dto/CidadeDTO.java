@@ -15,7 +15,6 @@ public class CidadeDTO implements Serializable {
 	@NotEmpty(message = "Campo NOME é mandatório")
 	private String nome;
 
-	@NotEmpty(message = "Campo ESTADO é mandatório")
 	private Estado estado;
 
 	public CidadeDTO() {
