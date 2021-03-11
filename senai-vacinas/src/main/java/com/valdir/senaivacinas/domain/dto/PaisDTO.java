@@ -2,6 +2,7 @@ package com.valdir.senaivacinas.domain.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 
 import com.valdir.senaivacinas.domain.Pais;
@@ -12,6 +13,7 @@ public class PaisDTO implements Serializable {
 	private Integer id;
 
 	@NotEmpty(message = "Campo NOME é mandatório")
+	@Column(unique = true)
 	private String nome;
 
 	public PaisDTO() {
