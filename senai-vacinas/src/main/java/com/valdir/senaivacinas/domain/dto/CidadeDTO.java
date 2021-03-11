@@ -2,6 +2,8 @@ package com.valdir.senaivacinas.domain.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.valdir.senaivacinas.domain.Cidade;
 import com.valdir.senaivacinas.domain.Estado;
 
@@ -9,7 +11,11 @@ public class CidadeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@NotEmpty(message = "Campo NOME é mandatório")
 	private String nome;
+
+	@NotEmpty(message = "Campo ESTADO é mandatório")
 	private Estado estado;
 
 	public CidadeDTO() {

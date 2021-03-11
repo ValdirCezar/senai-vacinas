@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.valdir.senaivacinas.domain.Agendamento;
 import com.valdir.senaivacinas.domain.Endereco;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
@@ -13,10 +15,14 @@ public class UnidadeAtendimentoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@NotEmpty(message = "Campo NOME é mandatório")
 	private String nome;
 	private Integer vacinados;
 	private List<Vacina> vacinas = new ArrayList<>();
 	private List<Agendamento> agendamentos = new ArrayList<>();
+
+	@NotEmpty(message = "Campo ENDERECO é mandatório")
 	private Endereco endereco;
 
 	public UnidadeAtendimentoDTO() {

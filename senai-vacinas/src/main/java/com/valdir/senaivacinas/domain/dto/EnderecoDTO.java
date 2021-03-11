@@ -2,6 +2,8 @@ package com.valdir.senaivacinas.domain.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.valdir.senaivacinas.domain.Cidade;
 import com.valdir.senaivacinas.domain.Endereco;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
@@ -11,13 +13,26 @@ public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@NotEmpty(message = "Campo LOGRADOURO é mandatório")
 	private String logradouro;
+
+	@NotEmpty(message = "Campo NUMERO é mandatório")
 	private String numero;
 	private String complemento;
+
+	@NotEmpty(message = "Campo BAIRRO é mandatório")
 	private String bairro;
+
+	@NotEmpty(message = "Campo CEP é mandatório")
 	private String cep;
+
+	@NotEmpty(message = "Campo USUARIO é mandatório")
 	private Usuario usuario;
+
+	@NotEmpty(message = "Campo CIDADE é mandatório")
 	private Cidade cidade;
+
 	private UnidadeAtendimento unidadeAtendimento;
 
 	public EnderecoDTO() {

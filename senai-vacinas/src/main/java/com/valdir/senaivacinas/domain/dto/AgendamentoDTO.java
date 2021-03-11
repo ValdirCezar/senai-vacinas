@@ -3,6 +3,8 @@ package com.valdir.senaivacinas.domain.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.valdir.senaivacinas.domain.Agendamento;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
 import com.valdir.senaivacinas.domain.Usuario;
@@ -11,10 +13,17 @@ public class AgendamentoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@NotEmpty(message = "Campo DATA é mandatório")
 	private Date data;
+
 	private Boolean finalizado;
 	private String observacoes;
+
+	@NotEmpty(message = "Campo USUARIO é mandatório")
 	private Usuario usuario;
+
+	@NotEmpty(message = "Campo UNIDADE DE ATENDIMENTO é mandatório")
 	private UnidadeAtendimento unidadeAtendimento;
 
 	public AgendamentoDTO() {
