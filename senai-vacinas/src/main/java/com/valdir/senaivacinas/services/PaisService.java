@@ -46,4 +46,17 @@ public class PaisService {
 		}
 
 	}
+
+	/*
+	 * Deletando Pais por ID
+	 */
+	public void delete(Integer id) {
+		Pais obj = findById(id);
+		try {
+			repository.deleteById(id);
+		} catch (org.springframework.dao.DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException(
+					obj.getNome() + " possui estados associados e não pode ser deletado! Id: " + id);
+		}
+	}
 }
