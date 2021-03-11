@@ -7,7 +7,6 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.valdir.senaivacinas.Vacina;
 import com.valdir.senaivacinas.domain.Agendamento;
 import com.valdir.senaivacinas.domain.Cidade;
 import com.valdir.senaivacinas.domain.Endereco;
@@ -15,6 +14,7 @@ import com.valdir.senaivacinas.domain.Estado;
 import com.valdir.senaivacinas.domain.Pais;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
 import com.valdir.senaivacinas.domain.Usuario;
+import com.valdir.senaivacinas.domain.Vacina;
 import com.valdir.senaivacinas.repositories.AgendamentoRepository;
 import com.valdir.senaivacinas.repositories.CidadeRepository;
 import com.valdir.senaivacinas.repositories.EnderecoRepository;
