@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Usuarios")
@@ -46,13 +45,11 @@ public class Usuario implements Serializable {
 
 	@Column(unique = true)
 	private String email;
-
-	@JsonIgnore
 	private String senha;
 
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Endereco endereco;
-	
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Agendamento> agendamentos = new ArrayList<>();
 
@@ -77,18 +74,17 @@ public class Usuario implements Serializable {
 		this.tipoDeDeficiencia = tipoDeDeficiencia;
 		this.email = email;
 		this.senha = senha;
-
 		this.verificaObesidade();
 		this.calculaIdade();
 	}
 
 	// Verifica se o usuario é obeso
-	private void verificaObesidade() {
+	public void verificaObesidade() {
 		this.setObeso((this.getPeso() / Math.pow(this.getAltura(), 2)) >= 30 ? true : false);
 	}
 
 	// Metodo que irá calcular a idade do usuario
-	private void calculaIdade() {
+	public void calculaIdade() {
 		Calendar dataNascimento = Calendar.getInstance();
 		dataNascimento.setTime(this.getDataDeNascimento());
 		Calendar hoje = Calendar.getInstance();

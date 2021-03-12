@@ -52,6 +52,19 @@ public class EnderecoDTO implements Serializable {
 		this.unidadeAtendimento = obj.getUnidadeAtendimento();
 	}
 
+	public static Endereco fromDTO(Endereco obj) {
+		Endereco newObj = new Endereco(
+				null, 
+				obj.getLogradouro(), 
+				obj.getNumero(), 
+				obj.getComplemento(),
+				obj.getBairro(), 
+				obj.getCep(), 
+				obj.getUsuario(), 
+				obj.getCidade());
+		return newObj;
+	}
+
 	public Integer getId() {
 		return id;
 	}
