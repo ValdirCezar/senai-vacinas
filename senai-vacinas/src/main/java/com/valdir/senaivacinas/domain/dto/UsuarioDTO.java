@@ -89,6 +89,7 @@ public class UsuarioDTO implements Serializable {
 	 */
 	public static Usuario toModel(UsuarioDTO obj) {
 		Usuario newObj = new Usuario();
+		newObj.setId(obj.getId());
 		newObj.setCpf(obj.getCpf());
 		newObj.setNome(obj.getNome());
 		newObj.setSobrenome(obj.getSobrenome());
