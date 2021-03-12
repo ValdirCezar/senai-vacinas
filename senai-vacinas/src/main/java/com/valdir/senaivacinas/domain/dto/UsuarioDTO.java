@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.valdir.senaivacinas.domain.Agendamento;
+import com.valdir.senaivacinas.domain.Cidade;
 import com.valdir.senaivacinas.domain.Endereco;
 import com.valdir.senaivacinas.domain.Usuario;
 
@@ -25,19 +28,20 @@ public class UsuarioDTO implements Serializable {
 	@NotEmpty(message = "Campo SOBRENOME é mandatório")
 	private String sobrenome;
 
-	@NotEmpty(message = "Campo ALTURA é mandatório")
+	@NotNull(message = "Campo ALTURA é mandatório")
 	private Double altura;
 
-	@NotEmpty(message = "Campo PESO é mandatório")
+	@NotNull(message = "Campo PESO é mandatório")
 	private Double peso;
 
-	@NotEmpty(message = "Campo SEXO é mandatório")
+	@NotNull(message = "Campo SEXO é mandatório")
 	private Character sexo;
 
 	@NotEmpty(message = "Campo TELEFONE é mandatório")
 	private String telefone;
 
-	@NotEmpty(message = "Campo DATA DE NASCIMENTO é mandatório")
+	@NotNull(message = "Campo DATA DE NASCIMENTO é mandatório")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataDeNascimento;
 
 	private Integer idade;
@@ -48,10 +52,9 @@ public class UsuarioDTO implements Serializable {
 	@NotEmpty(message = "Campo E-MAIL é mandatório")
 	private String email;
 
-	@NotEmpty(message = "Campo SENHA é mandatório")
+	@NotNull(message = "Campo SENHA é mandatório")
 	private String senha;
 
-	@NotEmpty(message = "Campo ENDERECO é mandatório")
 	private Endereco endereco;
 
 	private List<Agendamento> agendamentos = new ArrayList<>();
@@ -80,6 +83,44 @@ public class UsuarioDTO implements Serializable {
 		this.endereco = obj.getEndereco();
 		this.agendamentos = obj.getAgendamentos();
 	}
+	
+	/*
+	 * Método privado para converter um DTO para Model
+	 */
+	public static Usuario toModel(UsuarioDTO obj) {
+		Usuario newObj = new Usuario();
+		newObj.setCpf(obj.getCpf());
+		newObj.setNome(obj.getNome());
+		newObj.setSobrenome(obj.getSobrenome());
+		newObj.setAltura(obj.getAltura());
+		newObj.setPeso(obj.getPeso());
+		newObj.setSexo(obj.getSexo());
+		newObj.setTelefone(obj.getTelefone());
+		newObj.setDataDeNascimento(obj.getDataDeNascimento());
+		newObj.setDeficiente(obj.getDeficiente());
+		newObj.setTipoDeDeficiencia(obj.getTipoDeDeficiencia());
+		newObj.setEmail(obj.getEmail());
+		newObj.setSenha(obj.getSenha());
+		 
+		Cidade cid = new Cidade();
+		cid.setId(obj.getEndereco().getCidade().getId());
+		
+		Endereco end = new Endereco();
+		end.setLogradouro(obj.getEndereco().getLogradouro());
+		end.setNumero(obj.getEndereco().getNumero());
+		end.setComplemento(obj.getEndereco().getComplemento());
+		end.setBairro(obj.getEndereco().getBairro());
+		end.setCep(obj.getEndereco().getCep());
+		end.setCidade(cid);
+		end.setUsuario(newObj);
+		
+		newObj.setEndereco(end);
+		newObj.verificaObesidade();
+		newObj.calculaIdade();
+		
+		return newObj;
+	}
+ 
 
 	public Integer getId() {
 		return id;

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.valdir.senaivacinas.domain.Agendamento;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
 import com.valdir.senaivacinas.domain.Usuario;
@@ -15,6 +16,7 @@ public class AgendamentoDTO implements Serializable {
 	private Integer id;
 
 	@NotEmpty(message = "Campo DATA é mandatório")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data;
 
 	private Boolean finalizado;

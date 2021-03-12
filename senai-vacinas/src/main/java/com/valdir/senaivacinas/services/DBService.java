@@ -52,9 +52,10 @@ public class DBService {
 		
 		Estado e1 = new Estado(null, "Paraná", p1);
 		estadoRepository.saveAll(Arrays.asList(e1));
-		
+		 
 		Cidade c1 = new Cidade(null, "Londrina", e1);
-		cidadeRepository.saveAll(Arrays.asList(c1));
+		Cidade c2 = new Cidade(null, "Mauá da Serra", e1);
+		cidadeRepository.saveAll(Arrays.asList(c1, c2));
 		
 		Usuario u1 = new Usuario(null, "09129161924", "Valdir", "Cezar de Jesus", 1.75, 70.0, 'M', "43984634308", sdf.parse("12/02/1995"), false, null, "valdir@email.com", "123");
 		usuarioRepository.saveAll(Arrays.asList(u1));
