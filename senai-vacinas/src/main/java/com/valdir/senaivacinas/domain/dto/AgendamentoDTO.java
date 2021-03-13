@@ -3,8 +3,6 @@ package com.valdir.senaivacinas.domain.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.valdir.senaivacinas.domain.Agendamento;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
@@ -15,17 +13,12 @@ public class AgendamentoDTO implements Serializable {
 
 	private Integer id;
 
-	@NotEmpty(message = "Campo DATA é mandatório")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date data;
-
 	private Boolean finalizado;
 	private String observacoes;
 
-	@NotEmpty(message = "Campo USUARIO é mandatório")
 	private Usuario usuario;
-
-	@NotEmpty(message = "Campo UNIDADE DE ATENDIMENTO é mandatório")
 	private UnidadeAtendimento unidadeAtendimento;
 
 	public AgendamentoDTO() {
@@ -40,6 +33,15 @@ public class AgendamentoDTO implements Serializable {
 		this.observacoes = obj.getObservações();
 		this.usuario = obj.getUsuario();
 		this.unidadeAtendimento = obj.getUnidadeAtendimento();
+	}
+
+	public static Agendamento toModel(AgendamentoDTO obj) {
+		Agendamento newObj = new Agendamento();
+		newObj.setId(obj.getId());
+		newObj.setData(obj.getData());
+		newObj.setFinalizado(obj.getFinalizado());
+		newObj.setObservações(obj.getObservações());
+		return newObj;
 	}
 
 	public Integer getId() {

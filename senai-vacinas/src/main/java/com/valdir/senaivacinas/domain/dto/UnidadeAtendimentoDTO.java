@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.valdir.senaivacinas.domain.Agendamento;
 import com.valdir.senaivacinas.domain.Endereco;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
@@ -20,6 +21,8 @@ public class UnidadeAtendimentoDTO implements Serializable {
 	private String nome;
 	private Integer vacinados;
 	private List<Vacina> vacinas = new ArrayList<>();
+	
+	@JsonIgnore
 	private List<Agendamento> agendamentos = new ArrayList<>();
 
 	@NotEmpty(message = "Campo ENDERECO é mandatório")
