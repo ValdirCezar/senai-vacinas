@@ -107,6 +107,7 @@ public class UsuarioDTO implements Serializable {
 		cid.setId(obj.getEndereco().getCidade().getId());
 		
 		Endereco end = new Endereco();
+		end.setId(obj.getEndereco().getId());
 		end.setLogradouro(obj.getEndereco().getLogradouro());
 		end.setNumero(obj.getEndereco().getNumero());
 		end.setComplemento(obj.getEndereco().getComplemento());
