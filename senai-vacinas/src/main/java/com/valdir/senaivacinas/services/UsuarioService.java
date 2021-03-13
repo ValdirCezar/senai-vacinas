@@ -13,6 +13,7 @@ import com.valdir.senaivacinas.domain.Usuario;
 import com.valdir.senaivacinas.domain.dto.UsuarioDTO;
 import com.valdir.senaivacinas.repositories.EnderecoRepository;
 import com.valdir.senaivacinas.repositories.UsuarioRepository;
+import com.valdir.senaivacinas.services.exceptions.DataIntegrityViolationException;
 import com.valdir.senaivacinas.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -46,6 +47,7 @@ public class UsuarioService {
 	 * Criando um Usuário
 	 */
 	public @Valid UsuarioDTO create(@Valid UsuarioDTO obj) {
+		verificaDados(obj);
 		Usuario newObj = UsuarioDTO.toModel(obj);
 		newObj = repository.save(newObj);
 		enderecoRepository.save(newObj.getEndereco());
@@ -57,9 +59,34 @@ public class UsuarioService {
 	 */
 	public @Valid UsuarioDTO update(@Valid UsuarioDTO obj, Integer id) {
 		obj.setId(id);
+		verificaDados(obj);
 		Usuario objUp = findById(id);
 		objUp = repository.save(UsuarioDTO.toModel(obj));
 		return new UsuarioDTO(objUp);
+	}
+
+	/*
+	 * Metodo que irá verificar se existem contas com o e-mail, telefone ou CPF que
+	 * o usuário passou na criação de sua conta. Caso exista é lançada uma exceção
+	 * personalizada para o usuário e o erro não ocorre a nível de banco de dados
+	 */
+	private void verificaDados(UsuarioDTO obj) {
+		Usuario user = repository.findByCpf(obj.getCpf());
+		if (user != null && (obj.getId() != user.getId())) {
+			throw new DataIntegrityViolationException("CPF " + obj.getCpf() + " já possui cadastro no sistema!");
+		}
+
+		user = repository.findByTelefone(obj.getTelefone());
+		if (user != null && (obj.getId() != user.getId())) {
+			throw new DataIntegrityViolationException(
+					"Telefone " + obj.getTelefone() + " já possui cadastro no sistema!");
+		}
+
+		user = repository.findByEmail(obj.getEmail());
+		if (user != null && (obj.getId() != user.getId())) {
+			throw new DataIntegrityViolationException("E-mail " + obj.getEmail() + " já possui cadastro no sistema!");
+		}
+
 	}
 
 }

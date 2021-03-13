@@ -8,4 +8,11 @@ import com.valdir.senaivacinas.domain.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
+	Usuario findByCpf(String cpf);
+
+	Usuario findByEmail(String email);
+
+	Usuario findByTelefone(String telefone);
+
+	
 }
