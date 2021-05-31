@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.valdir.senaivacinas.domain.Usuario;
@@ -24,6 +25,9 @@ public class UsuarioService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	/*
 	 * Busca de um Usuário por ID
@@ -49,6 +53,7 @@ public class UsuarioService {
 	public @Valid UsuarioDTO create(@Valid UsuarioDTO obj) {
 		verificaDados(obj);
 		Usuario newObj = UsuarioDTO.toModel(obj);
+		newObj.setSenha(encoder.encode(obj.getSenha()));
 		newObj = repository.save(newObj);
 		enderecoRepository.save(newObj.getEndereco());
 		return new UsuarioDTO(newObj);

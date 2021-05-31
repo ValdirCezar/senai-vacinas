@@ -16,6 +16,7 @@ import com.valdir.senaivacinas.domain.Pais;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
 import com.valdir.senaivacinas.domain.Usuario;
 import com.valdir.senaivacinas.domain.Vacina;
+import com.valdir.senaivacinas.domain.enums.Perfil;
 import com.valdir.senaivacinas.repositories.AgendamentoRepository;
 import com.valdir.senaivacinas.repositories.CidadeRepository;
 import com.valdir.senaivacinas.repositories.EnderecoRepository;
@@ -61,6 +62,7 @@ public class DBService {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2));
 		
 		Usuario u1 = new Usuario(null, "09129161924", "Valdir", "Cezar de Jesus", 1.75, 70.0, 'M', "43984634308", sdf.parse("12/02/1995"), false, null, "valdir@email.com", encoder.encode("123"));
+		u1.addPerfil(Perfil.ADMIN);
 		usuarioRepository.saveAll(Arrays.asList(u1));
 		
 		Endereco end1 = new Endereco(null, "Rua das Flores", "1325", "Casa frente", "Luiz de sá", "86087090", u1, c1);
