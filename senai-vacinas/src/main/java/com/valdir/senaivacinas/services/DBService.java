@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.valdir.senaivacinas.domain.Agendamento;
@@ -43,6 +44,8 @@ public class DBService {
 	private VacinaRepository vacinaRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public void instanciaDB() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,7 +60,7 @@ public class DBService {
 		Cidade c2 = new Cidade(null, "Mauá da Serra", e1);
 		cidadeRepository.saveAll(Arrays.asList(c1, c2));
 		
-		Usuario u1 = new Usuario(null, "09129161924", "Valdir", "Cezar de Jesus", 1.75, 70.0, 'M', "43984634308", sdf.parse("12/02/1995"), false, null, "valdir@email.com", "123");
+		Usuario u1 = new Usuario(null, "09129161924", "Valdir", "Cezar de Jesus", 1.75, 70.0, 'M', "43984634308", sdf.parse("12/02/1995"), false, null, "valdir@email.com", encoder.encode("123"));
 		usuarioRepository.saveAll(Arrays.asList(u1));
 		
 		Endereco end1 = new Endereco(null, "Rua das Flores", "1325", "Casa frente", "Luiz de sá", "86087090", u1, c1);
