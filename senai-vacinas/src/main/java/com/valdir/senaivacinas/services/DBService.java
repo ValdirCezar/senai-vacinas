@@ -61,9 +61,11 @@ public class DBService {
 		Cidade c2 = new Cidade(null, "Mauá da Serra", e1);
 		cidadeRepository.saveAll(Arrays.asList(c1, c2));
 		
-		Usuario u1 = new Usuario(null, "09129161924", "Valdir", "Cezar de Jesus", 1.75, 70.0, 'M', "43984634308", sdf.parse("12/02/1995"), false, null, "valdir@email.com", encoder.encode("123"));
+		Usuario u1 = new Usuario(null, "465.947.630-83", "Valdir", "Cezar de Jesus", 1.75, 70.0, 'M', "43984634308", sdf.parse("12/02/1995"), false, null, "valdir@email.com", encoder.encode("123"));
 		u1.addPerfil(Perfil.ADMIN);
-		usuarioRepository.saveAll(Arrays.asList(u1));
+		
+		Usuario u2 = new Usuario(null, "589.386.040-39", "Matheus", "Aparecido Teodoro", 1.76, 74.0, 'M', "43984634312", sdf.parse("12/02/1995"), false, null, "matheus@email.com", encoder.encode("123"));
+		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		
 		Endereco end1 = new Endereco(null, "Rua das Flores", "1325", "Casa frente", "Luiz de sá", "86087090", u1, c1);
 		enderecoRepository.saveAll(Arrays.asList(end1));
