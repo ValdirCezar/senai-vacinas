@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -27,5 +28,13 @@ public class ResourceExceptionHandler {
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
 				e.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<StandardError> accessDeniedException(
+			AccessDeniedException e, HttpServletRequest request) {
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
+				e.getMessage());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
 }
