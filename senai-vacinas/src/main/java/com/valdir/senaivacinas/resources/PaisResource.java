@@ -22,6 +22,10 @@ import com.valdir.senaivacinas.domain.Pais;
 import com.valdir.senaivacinas.domain.dto.PaisDTO;
 import com.valdir.senaivacinas.services.PaisService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping(value = "/paises")
 public class PaisResource {
@@ -47,7 +51,7 @@ public class PaisResource {
 		List<PaisDTO> listDTO = list.stream().map(obj -> new PaisDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
+
 	/*
 	 * Criando um novo Pais
 	 */
@@ -58,7 +62,7 @@ public class PaisResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	/*
 	 * Deletar Pais por ID
 	 */
@@ -69,16 +73,3 @@ public class PaisResource {
 		return ResponseEntity.noContent().build();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
