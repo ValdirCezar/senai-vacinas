@@ -55,7 +55,7 @@ public class Usuario implements Serializable {
 	private String email;
 	private String senha;
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.MERGE)
 	private Endereco endereco;
 
 	@OneToMany(mappedBy = "usuario")
