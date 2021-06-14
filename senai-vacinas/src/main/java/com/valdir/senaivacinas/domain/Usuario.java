@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.valdir.senaivacinas.domain.enums.Perfil;
 
 @Entity
@@ -58,6 +59,7 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Endereco endereco;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "usuario")
 	private List<Agendamento> agendamentos = new ArrayList<>();
 	
