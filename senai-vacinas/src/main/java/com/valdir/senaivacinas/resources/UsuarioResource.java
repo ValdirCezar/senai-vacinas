@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,15 +33,6 @@ public class UsuarioResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
 		UsuarioDTO obj = new UsuarioDTO(service.findById(id));
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	/*
-	 * Busca de um Usuário por ID
-	 */
-	@GetMapping(value = "/email")
-	public ResponseEntity<UsuarioDTO> findByEmail(@RequestParam String email) {
-		UsuarioDTO obj = new UsuarioDTO(service.findByEmail(email));
 		return ResponseEntity.ok().body(obj);
 	}
 
