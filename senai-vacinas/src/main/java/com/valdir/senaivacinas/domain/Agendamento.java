@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Agendamentos")
@@ -25,7 +26,7 @@ public class Agendamento implements Serializable {
 	private Boolean finalizado;
 	private String observacoes;
 
-	@JsonIgnore
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;

@@ -25,7 +25,7 @@ public class UsuarioService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
@@ -36,6 +36,19 @@ public class UsuarioService {
 		Optional<Usuario> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não contrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
+	}
+
+	/*
+	 * Busca de um Usuário por E-MAIL
+	 */
+	public Usuario findByEmail(String email) {
+		Usuario obj = repository.findByEmail(email);
+
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não contrado! Id: " + email + ", Tipo: " + Usuario.class.getName());
+		}
+		return obj;
 	}
 
 	/*
