@@ -38,30 +38,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
     private JWTUtil jwtUtil;
 	
-	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
-	private static final String[] PUBLIC_MATCHERS_POST = { "/usuarios/**"};
+	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**"};
+	private static final String[] PUBLIC_MATCHERS_POST = { "/usuarios/**", "/login/**"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
 		
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
 		
-		http.authorizeRequests()
-			.antMatchers(PUBLIC_MATCHERS).permitAll()
-			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
-			.anyRequest().authenticated();
+		http.cors();
+		http.csrf().disable();
 		
-		// Registrando o filtro de authenticação JWT
-        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-        
-        // Registrando o filtro de Autorização JWT
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
-        
-        // Assegurando que não será criada sessão de usuário
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()
+		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+		.anyRequest().authenticated();
+		
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
 	}
 	

@@ -22,10 +22,6 @@ import com.valdir.senaivacinas.domain.Pais;
 import com.valdir.senaivacinas.domain.dto.PaisDTO;
 import com.valdir.senaivacinas.services.PaisService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 @RestController
 @RequestMapping(value = "/paises")
 public class PaisResource {
