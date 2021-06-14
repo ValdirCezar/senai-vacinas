@@ -39,19 +39,6 @@ public class UsuarioService {
 	}
 
 	/*
-	 * Busca de um Usuário por E-MAIL
-	 */
-	public Usuario findByEmail(String email) {
-		Usuario obj = repository.findByEmail(email);
-
-		if (obj == null) {
-			throw new ObjectNotFoundException(
-					"Objeto não contrado! Id: " + email + ", Tipo: " + Usuario.class.getName());
-		}
-		return obj;
-	}
-
-	/*
 	 * Busca de todos os Usuários
 	 */
 	public List<UsuarioDTO> findAll() {
