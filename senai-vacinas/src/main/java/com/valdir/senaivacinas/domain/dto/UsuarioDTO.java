@@ -28,12 +28,6 @@ public class UsuarioDTO implements Serializable {
 	@NotEmpty(message = "Campo SOBRENOME é mandatório")
 	private String sobrenome;
 
-	private Double altura;
-
-	private Double peso;
-
-	private Character sexo;
-
 	@NotEmpty(message = "Campo TELEFONE é mandatório")
 	private String telefone;
 
@@ -66,9 +60,6 @@ public class UsuarioDTO implements Serializable {
 		this.cpf = obj.getCpf();
 		this.nome = obj.getNome();
 		this.sobrenome = obj.getSobrenome();
-		this.altura = obj.getAltura();
-		this.peso = obj.getPeso();
-		this.sexo = obj.getSexo();
 		this.telefone = obj.getTelefone();
 		this.dataDeNascimento = obj.getDataDeNascimento();
 		this.idade = obj.getIdade();
@@ -90,9 +81,6 @@ public class UsuarioDTO implements Serializable {
 		newObj.setCpf(obj.getCpf());
 		newObj.setNome(obj.getNome());
 		newObj.setSobrenome(obj.getSobrenome());
-		newObj.setAltura(obj.getAltura());
-		newObj.setPeso(obj.getPeso());
-		newObj.setSexo(obj.getSexo());
 		newObj.setTelefone(obj.getTelefone());
 		newObj.setDataDeNascimento(obj.getDataDeNascimento());
 		newObj.setDeficiente(obj.getDeficiente());
@@ -113,7 +101,6 @@ public class UsuarioDTO implements Serializable {
 		end.setUsuario(newObj);
 
 		newObj.setEndereco(end);
-		newObj.verificaObesidade();
 		newObj.calculaIdade();
 
 		return newObj;
@@ -149,30 +136,6 @@ public class UsuarioDTO implements Serializable {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
-	}
-
-	public Double getAltura() {
-		return altura;
-	}
-
-	public void setAltura(Double altura) {
-		this.altura = altura;
-	}
-
-	public Double getPeso() {
-		return peso;
-	}
-
-	public void setPeso(Double peso) {
-		this.peso = peso;
-	}
-
-	public Character getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(Character sexo) {
-		this.sexo = sexo;
 	}
 
 	public String getTelefone() {
