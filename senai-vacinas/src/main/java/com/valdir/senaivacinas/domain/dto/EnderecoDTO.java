@@ -2,8 +2,6 @@ package com.valdir.senaivacinas.domain.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.valdir.senaivacinas.domain.Cidade;
 import com.valdir.senaivacinas.domain.Endereco;
 import com.valdir.senaivacinas.domain.UnidadeAtendimento;
@@ -14,23 +12,16 @@ public class EnderecoDTO implements Serializable {
 
 	private Integer id;
 
-	@NotEmpty(message = "Campo LOGRADOURO é mandatório")
 	private String logradouro;
 
-	@NotEmpty(message = "Campo NUMERO é mandatório")
 	private String numero;
-	private String complemento;
 
-	@NotEmpty(message = "Campo BAIRRO é mandatório")
 	private String bairro;
 
-	@NotEmpty(message = "Campo CEP é mandatório")
 	private String cep;
 
-	@NotEmpty(message = "Campo USUARIO é mandatório")
 	private Usuario usuario;
 
-	@NotEmpty(message = "Campo CIDADE é mandatório")
 	private Cidade cidade;
 
 	private UnidadeAtendimento unidadeAtendimento;
@@ -43,7 +34,6 @@ public class EnderecoDTO implements Serializable {
 		super();
 		this.logradouro = obj.getLogradouro();
 		this.numero = obj.getNumero();
-		this.complemento = obj.getComplemento();
 		this.bairro = obj.getBairro();
 		this.cep = obj.getCep();
 		this.usuario = obj.getUsuario();
@@ -52,14 +42,8 @@ public class EnderecoDTO implements Serializable {
 	}
 
 	public static Endereco fromDTO(Endereco obj) {
-		Endereco newObj = new Endereco(
-				obj.getLogradouro(), 
-				obj.getNumero(), 
-				obj.getComplemento(),
-				obj.getBairro(), 
-				obj.getCep(), 
-				obj.getUsuario(), 
-				obj.getCidade());
+		Endereco newObj = new Endereco(obj.getLogradouro(), obj.getNumero(), obj.getComplemento(), obj.getBairro(),
+				obj.getCep(), obj.getUsuario(), obj.getCidade());
 		return newObj;
 	}
 
@@ -85,14 +69,6 @@ public class EnderecoDTO implements Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
 	}
 
 	public String getBairro() {
