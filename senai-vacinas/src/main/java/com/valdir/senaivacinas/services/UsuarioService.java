@@ -85,18 +85,18 @@ public class UsuarioService {
 	private void verificaDados(UsuarioDTO obj) {
 		Usuario user = repository.findByCpf(obj.getCpf());
 		if (user != null && (obj.getId() != user.getId())) {
-			throw new DataIntegrityViolationException("CPF " + obj.getCpf() + " já possui cadastro no sistema!");
+			throw new DataIntegrityViolationException("CPF já possui cadastro no sistema!");
 		}
 
 		user = repository.findByTelefone(obj.getTelefone());
 		if (user != null && (obj.getId() != user.getId())) {
 			throw new DataIntegrityViolationException(
-					"Telefone " + obj.getTelefone() + " já possui cadastro no sistema!");
+					"Telefone já possui cadastro no sistema!");
 		}
 
 		user = repository.findByEmail(obj.getEmail());
 		if (user != null && (obj.getId() != user.getId())) {
-			throw new DataIntegrityViolationException("E-mail " + obj.getEmail() + " já possui cadastro no sistema!");
+			throw new DataIntegrityViolationException("E-mail já possui cadastro no sistema!");
 		}
 
 	}
