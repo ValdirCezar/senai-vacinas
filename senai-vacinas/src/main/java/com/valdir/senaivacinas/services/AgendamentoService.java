@@ -74,7 +74,7 @@ public class AgendamentoService {
 		 * Verifica a quantidade de agendamento do usuário e se for de tamanho dois o
 		 * mesmo não pode mais realizar agendamento
 		 */
-		if (user.getAgendamentos().size() < 2) {
+		if (user.getAgendamentos().size() < 200) {
 			user.getAgendamentos().add(newObj);
 		} else {
 			throw new DataIntegrityViolationException(
