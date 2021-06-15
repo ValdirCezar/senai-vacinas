@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valdir.senaivacinas.domain.dto.AgendamentoDTO;
@@ -27,10 +28,9 @@ public class AgendamentoResource {
 		return ResponseEntity.ok().body(service.findById(id));
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@GetMapping
-	public ResponseEntity<List<AgendamentoDTO>> findAll() {
-		return ResponseEntity.ok().body(service.findAll());
+	@GetMapping(value = "/usuario")
+	public ResponseEntity<List<AgendamentoDTO>> findAll(@RequestParam Integer id) {
+		return ResponseEntity.ok().body(service.findAll(id));
 	}
 
 	@PostMapping
