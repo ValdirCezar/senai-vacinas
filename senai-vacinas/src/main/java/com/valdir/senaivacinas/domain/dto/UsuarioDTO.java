@@ -28,13 +28,10 @@ public class UsuarioDTO implements Serializable {
 	@NotEmpty(message = "Campo SOBRENOME é mandatório")
 	private String sobrenome;
 
-	@NotNull(message = "Campo ALTURA é mandatório")
 	private Double altura;
 
-	@NotNull(message = "Campo PESO é mandatório")
 	private Double peso;
 
-	@NotNull(message = "Campo SEXO é mandatório")
 	private Character sexo;
 
 	@NotEmpty(message = "Campo TELEFONE é mandatório")
