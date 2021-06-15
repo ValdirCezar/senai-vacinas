@@ -41,7 +41,6 @@ public class EnderecoDTO implements Serializable {
 
 	public EnderecoDTO(Endereco obj) {
 		super();
-		this.id = obj.getId();
 		this.logradouro = obj.getLogradouro();
 		this.numero = obj.getNumero();
 		this.complemento = obj.getComplemento();
@@ -54,7 +53,6 @@ public class EnderecoDTO implements Serializable {
 
 	public static Endereco fromDTO(Endereco obj) {
 		Endereco newObj = new Endereco(
-				null, 
 				obj.getLogradouro(), 
 				obj.getNumero(), 
 				obj.getComplemento(),

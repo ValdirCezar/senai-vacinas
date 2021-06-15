@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -19,7 +18,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -56,7 +54,7 @@ public class Usuario implements Serializable {
 	private String email;
 	private String senha;
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.MERGE)
+	@Column(length = 25000)
 	private Endereco endereco;
 
 	@JsonIgnore
