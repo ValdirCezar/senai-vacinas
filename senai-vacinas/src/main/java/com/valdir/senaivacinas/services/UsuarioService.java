@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.valdir.senaivacinas.domain.Usuario;
@@ -25,6 +26,9 @@ public class UsuarioService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
 	/*
 	 * Busca de um Usuário por ID
 	 */
@@ -32,6 +36,18 @@ public class UsuarioService {
 		Optional<Usuario> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não contrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
+	}
+	
+	/*
+	 * Busca de um Usuário por E-MAIL
+	 */
+	public Usuario findByEmail(String email) {
+		Usuario obj = repository.findByEmail(email);
+		if(obj.equals(null)) {
+			throw new ObjectNotFoundException(
+					"Objeto não contrado! Id: " + email + ", Tipo: " + Usuario.class.getName());
+		}
+		return obj;
 	}
 
 	/*
@@ -49,6 +65,7 @@ public class UsuarioService {
 	public @Valid UsuarioDTO create(@Valid UsuarioDTO obj) {
 		verificaDados(obj);
 		Usuario newObj = UsuarioDTO.toModel(obj);
+		newObj.setSenha(encoder.encode(obj.getSenha()));
 		newObj = repository.save(newObj);
 		enderecoRepository.save(newObj.getEndereco());
 		return new UsuarioDTO(newObj);

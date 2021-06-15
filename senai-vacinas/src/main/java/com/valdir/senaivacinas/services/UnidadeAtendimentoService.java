@@ -1,5 +1,6 @@
 package com.valdir.senaivacinas.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public class UnidadeAtendimentoService {
 		Optional<UnidadeAtendimento> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não contrado! Id: " + id + ", Tipo: " + UnidadeAtendimento.class.getName()));
+	}
+	
+	public List<UnidadeAtendimento> findAll() {
+		return repository.findAll();
 	}
 }

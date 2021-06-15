@@ -62,9 +62,9 @@ public class AgendamentoService {
 	 */
 	private Agendamento updateData(AgendamentoDTO obj) {
 		obj.setId(null);
-		Usuario user = usuarioService.findById(obj.getUsuario().getId());
+		Usuario user = usuarioService.findById(obj.getUsuario());
 		System.out.println(user.getNome());
-		UnidadeAtendimento unidadeAtendimento = unidadeService.findById(obj.getUnidadeAtendimento().getId());
+		UnidadeAtendimento unidadeAtendimento = unidadeService.findById(obj.getUnidadeAtendimento());
 		Agendamento newObj = AgendamentoDTO.toModel(obj);
 
 		newObj.setUsuario(user);
@@ -74,7 +74,7 @@ public class AgendamentoService {
 		 * Verifica a quantidade de agendamento do usuário e se for de tamanho dois o
 		 * mesmo não pode mais realizar agendamento
 		 */
-		if (user.getAgendamentos().size() < 2) {
+		if (user.getAgendamentos().size() < 200) {
 			user.getAgendamentos().add(newObj);
 		} else {
 			throw new DataIntegrityViolationException(

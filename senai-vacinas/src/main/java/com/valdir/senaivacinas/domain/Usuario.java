@@ -4,17 +4,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.valdir.senaivacinas.domain.enums.Perfil;
 
 @Entity
 @Table(name = "Usuarios")
@@ -47,14 +56,20 @@ public class Usuario implements Serializable {
 	private String email;
 	private String senha;
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.MERGE)
 	private Endereco endereco;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Agendamento> agendamentos = new ArrayList<>();
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+
 	public Usuario() {
 		super();
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Usuario(Integer id, String cpf, String nome, String sobrenome, Double altura, Double peso, Character sexo,
@@ -76,6 +91,7 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 		this.verificaObesidade();
 		this.calculaIdade();
+		addPerfil(Perfil.USUARIO);
 	}
 
 	// Verifica se o usuario é obeso
@@ -235,6 +251,14 @@ public class Usuario implements Serializable {
 
 	public void setAgendamentos(List<Agendamento> agendamentos) {
 		this.agendamentos = agendamentos;
+	}
+
+	public Set<Perfil> getPerfis() {
+		return this.perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
 	}
 
 	@Override

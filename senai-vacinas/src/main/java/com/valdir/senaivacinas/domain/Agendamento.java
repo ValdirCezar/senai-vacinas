@@ -25,7 +25,6 @@ public class Agendamento implements Serializable {
 	private Boolean finalizado;
 	private String observacoes;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
