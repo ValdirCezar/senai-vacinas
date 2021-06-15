@@ -44,8 +44,9 @@ public class AgendamentoService {
 	/*
 	 * Lista todos os agendamentos
 	 */
-	public List<AgendamentoDTO> findAll() {
-		List<Agendamento> list = repository.findAll();
+	public List<AgendamentoDTO> findAll(Integer id) {
+		Usuario user = usuarioService.findById(id);
+		List<Agendamento> list = repository.findByUsuario(user);
 		return list.stream().map(obj -> new AgendamentoDTO(obj)).collect(Collectors.toList());
 	}
 
