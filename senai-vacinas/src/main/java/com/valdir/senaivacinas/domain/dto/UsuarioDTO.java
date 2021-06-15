@@ -41,7 +41,7 @@ public class UsuarioDTO implements Serializable {
 	private String telefone;
 
 	@NotNull(message = "Campo DATA DE NASCIMENTO é mandatório")
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dataDeNascimento;
 
 	private Integer idade;
