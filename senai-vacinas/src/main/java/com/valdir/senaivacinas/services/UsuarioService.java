@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.valdir.senaivacinas.domain.Usuario;
 import com.valdir.senaivacinas.domain.dto.UsuarioDTO;
-import com.valdir.senaivacinas.repositories.EnderecoRepository;
 import com.valdir.senaivacinas.repositories.UsuarioRepository;
 import com.valdir.senaivacinas.services.exceptions.DataIntegrityViolationException;
 import com.valdir.senaivacinas.services.exceptions.ObjectNotFoundException;
@@ -22,9 +21,6 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
-
-	@Autowired
-	private EnderecoRepository enderecoRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -37,13 +33,13 @@ public class UsuarioService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não contrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
 	}
-	
+
 	/*
 	 * Busca de um Usuário por E-MAIL
 	 */
 	public Usuario findByEmail(String email) {
 		Usuario obj = repository.findByEmail(email);
-		if(obj.equals(null)) {
+		if (obj == null) {
 			throw new ObjectNotFoundException(
 					"Objeto não contrado! Id: " + email + ", Tipo: " + Usuario.class.getName());
 		}
@@ -67,7 +63,6 @@ public class UsuarioService {
 		Usuario newObj = UsuarioDTO.toModel(obj);
 		newObj.setSenha(encoder.encode(obj.getSenha()));
 		newObj = repository.save(newObj);
-		enderecoRepository.save(newObj.getEndereco());
 		return new UsuarioDTO(newObj);
 	}
 

@@ -42,7 +42,7 @@ public class UsuarioDTO implements Serializable {
 
 	@NotNull(message = "Campo DATA DE NASCIMENTO é mandatório")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date dataDeNascimento; 
+	private Date dataDeNascimento;
 
 	private Integer idade;
 	private Boolean obeso;
@@ -83,7 +83,7 @@ public class UsuarioDTO implements Serializable {
 		this.endereco = obj.getEndereco();
 		this.agendamentos = obj.getAgendamentos();
 	}
-	
+
 	/*
 	 * Método privado para converter um DTO para Model
 	 */
@@ -102,12 +102,11 @@ public class UsuarioDTO implements Serializable {
 		newObj.setTipoDeDeficiencia(obj.getTipoDeDeficiencia());
 		newObj.setEmail(obj.getEmail());
 		newObj.setSenha(obj.getSenha());
-		 
+
 		Cidade cid = new Cidade();
 		cid.setId(obj.getEndereco().getCidade().getId());
-		
+
 		Endereco end = new Endereco();
-		end.setId(obj.getEndereco().getId());
 		end.setLogradouro(obj.getEndereco().getLogradouro());
 		end.setNumero(obj.getEndereco().getNumero());
 		end.setComplemento(obj.getEndereco().getComplemento());
@@ -115,14 +114,13 @@ public class UsuarioDTO implements Serializable {
 		end.setCep(obj.getEndereco().getCep());
 		end.setCidade(cid);
 		end.setUsuario(newObj);
-		
+
 		newObj.setEndereco(end);
 		newObj.verificaObesidade();
 		newObj.calculaIdade();
-		
+
 		return newObj;
 	}
- 
 
 	public Integer getId() {
 		return id;

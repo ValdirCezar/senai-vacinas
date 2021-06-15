@@ -36,7 +36,7 @@ public class UsuarioResource {
 		UsuarioDTO obj = new UsuarioDTO(service.findById(id));
 		return ResponseEntity.ok().body(obj);
 	}
-	
+	 
 	/*
 	 * Busca de um Usuário por E-MAIL
 	 */
@@ -60,7 +60,7 @@ public class UsuarioResource {
 	 * Criando um Usuário
 	 */
 	@PostMapping
-	public ResponseEntity<UsuarioDTO> create(@Valid @RequestBody UsuarioDTO obj) {
+	public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioDTO obj) {
 		obj = service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
