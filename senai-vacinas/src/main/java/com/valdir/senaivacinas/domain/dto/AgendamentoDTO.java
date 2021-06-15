@@ -11,7 +11,7 @@ public class AgendamentoDTO implements Serializable {
 
 	private Integer id;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date data;
 	private Boolean finalizado;
 	private String observacoes;
